@@ -19,3 +19,14 @@ def secondlastElem[A](l: List[A]): Option[A] = l match {
     case _ :: xs             => secondlastElem(xs)
 
 }
+
+//Find the K'th element of a list
+
+@tailrec
+def KthElem[A](l: List[A], k: Int): Option[A] = (l,k) match {
+    case (Nil,_) => None 
+    case (_, n) if (n > l.size - 1) => None
+    case ((x::_), 0) => Some(x)
+    case ((x::xs), n) => KthElem(xs, n - 1) // Some(l(k))
+
+}
