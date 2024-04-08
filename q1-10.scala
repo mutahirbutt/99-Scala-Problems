@@ -96,6 +96,16 @@ def flattenRec(xs: List[Any]): List[Any] = {
     loop(xs, List.empty).reverse
 }
 
+//using a for-comprehension
+def flattenNest(xs: List[Any]): List[Any] = {
+    for {
+        x <- xs
+        y <- x match {
+            case ys: List[Any] => flattenNest(ys)
+            case y => List(y)
+        }
+    } yield y
+}
 
 //Problem 8: Eliminate consecutive duplicates of list elements
 //compress(List('a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'))
