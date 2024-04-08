@@ -76,8 +76,7 @@ def isPalindrome[A](l: List[A]): Boolean = {
 def flattenNest(xs: List[Any]): List[Any] = {
     if xs.nonEmpty then xs.head match {
         case ys: List[Any] => flattenNest(ys) ++ flattenNest(xs.tail)
-        case y => y :: flattenNest(xs.tail)
-        
+        case y => y :: flattenNest(xs.tail) 
     }
     else Nil 
 
@@ -98,4 +97,21 @@ def flattenRec(xs: List[Any]): List[Any] = {
 }
 
 
+//Problem 8: Eliminate consecutive duplicates of list elements
+//compress(List('a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'))
+//=> List('a', 'b', 'c', 'a', 'd', 'e')
 
+def compress[A](l: List[A]): List[A] = l match {
+    case Nil => Nil
+    case x :: xs => x :: compress(xs.dropWhile(_== x))
+
+}
+
+//Problem 9: Pack consecutive duplicates of list elements into sublists
+//pack(List('a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'))
+//List(List('a', 'a', 'a', 'a'), List('b'), List('c', 'c'), List('a', 'a'), List('d'), List('e', 'e', 'e', 'e'))
+
+def pack[A](l: List[A]): List[List[A]] = l match {
+    case Nil => Nil
+    case x :: xs => List(l.takeWhile(_ == x)) ::: pack(l.dropWhile(_ == x))
+}
