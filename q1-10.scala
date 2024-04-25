@@ -125,3 +125,30 @@ def pack[A](l: List[A]): List[List[A]] = l match {
     case Nil => Nil
     case x :: xs => List(l.takeWhile(_ == x)) ::: pack(l.dropWhile(_ == x))
 }
+
+//Problem 10: Run-length encoding of a list
+
+def encode[A](ls: List[A]): List[(Int,A)] = {
+    for {
+        l <- pack(ls)
+    } yield (l.length,l.head)
+}
+
+//Problem 11:
+
+def encodeModified[A](ls: List[A]): List[Any] = {
+    for {
+        l <- pack(ls)
+    } yield {if l.length == 1 then l.head else (l.length,l.head)}
+}
+
+//Problem 12: 
+
+def decode[A](ls: List[(Int,A)]): List[A] = {
+    for {
+        (a,b) <- ls 
+        d <- List.fill(a)(b)
+    } yield d
+}
+
+//Problem 13: 
